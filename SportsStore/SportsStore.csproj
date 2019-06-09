@@ -16,4 +16,19 @@
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Remove="Pages\_ViewImports.cshtml" />
+    <Content Remove="Pages\Error.cshtml" />
+    <Content Remove="Pages\Index.cshtml" />
+    <Content Remove="Pages\Privacy.cshtml" />
+    <Content Remove="Pages\_ViewStart.cshtml" />
+    <Content Remove="Pages\Shared\_CookieConsentPartial.cshtml" />
+    <Content Remove="Pages\Shared\_Layout.cshtml" />
+    <Content Remove="Pages\Shared\_ValidationScriptsPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\Error.cshtml.cs" />
+    <Compile Remove="Pages\Index.cshtml.cs" />
+    <Compile Remove="Pages\Privacy.cshtml.cs" />
+  </ItemGroup>
 </Project>
