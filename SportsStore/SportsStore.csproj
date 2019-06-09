@@ -31,4 +31,7 @@
     <Compile Remove="Pages\Index.cshtml.cs" />
     <Compile Remove="Pages\Privacy.cshtml.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Models\Product.cs" />
+  </ItemGroup>
 </Project>
