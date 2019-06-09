@@ -49,11 +49,14 @@ namespace SportsStore
                 app.UseHsts();
             }
 
+            app.UseDeveloperExceptionPage();
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseMvc(routes => {
 
-            app.UseMvc();
+            });
         }
     }
 }
