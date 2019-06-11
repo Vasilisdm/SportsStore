@@ -36,7 +36,7 @@ namespace SportsStore
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("ApplicationContext")));
 
-            services.AddTransient<IProductRepository, FakeProductRepository>();
+            services.AddTransient<IProductRepository, EFProductRepository>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
