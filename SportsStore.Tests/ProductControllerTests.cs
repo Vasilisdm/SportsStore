@@ -1,9 +1,9 @@
-﻿using Moq;
-using Xunit;
-using SportsStore.Models;
-using SportsStore.Controllers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Moq;
+using SportsStore.Controllers;
+using SportsStore.Models;
+using Xunit;
 
 namespace SportsStore.Tests
 {
@@ -24,9 +24,16 @@ namespace SportsStore.Tests
             }).AsQueryable<Product>());
 
             ProductController controller = new ProductController(mock.Object);
+            controller.PageSize = 3;
 
             // Act
             IEnumerable<Product> result = controller.List(2).ViewData.Model as IEnumerable<Product>;
+
+            // Assert
+            Product[] productArray = result.ToArray();
+            Assert.True(productArray.Length == 2);
+            Assert.Equal("p4", productArray[0].Name);
+            Assert.Equal("p5", productArray[1].Name);
         }
     }
 }
