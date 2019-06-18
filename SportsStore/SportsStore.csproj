@@ -18,6 +18,7 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\_ViewImports.cshtml" />
