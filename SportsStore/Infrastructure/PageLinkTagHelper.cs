@@ -16,5 +16,13 @@ namespace SportsStore.Infrastructure
         {
             urlHelperFactory = helperFactory;
         }
+
+        [ViewContext]
+        [HtmlAttributeNotBound]
+        public ViewContext ViewContext { get; set; }
+
+        public PagingInfo PageModel { get; set; }
+
+        public string PageAction { get; set; }
     }
 }
