@@ -24,5 +24,23 @@ namespace SportsStore.Infrastructure
         public PagingInfo PageModel { get; set; }
 
         public string PageAction { get; set; }
+
+        public override void Process(TagHelperContext context, TagHelperOutput output)
+        {
+            IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(ViewContext);
+
+            TagBuilder result = new TagBuilder("div");
+
+            for (int i = 0; i < PageModel.TotalPages; i++)
+            {
+                TagBuilder tag = new TagBuilder("a");
+
+                tag.Attributes["href"] = urlHelper.Action(PageAction, new { productPage = i });
+                tag.InnerHtml.Append(i.ToString());
+                result.InnerHtml.AppendHtml(tag);
+            }
+
+            output.Content.AppendHtml(result.InnerHtml);
+        }
     }
 }
