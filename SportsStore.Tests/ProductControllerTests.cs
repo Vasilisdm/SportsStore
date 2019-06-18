@@ -32,8 +32,8 @@ namespace SportsStore.Tests
             // Assert
             Product[] productArray = result.ToArray();
             Assert.True(productArray.Length == 2);
-            Assert.Equal("p4", productArray[0].Name);
-            Assert.Equal("p5", productArray[1].Name);
+            Assert.Equal("P4", productArray[0].Name);
+            Assert.Equal("P5", productArray[1].Name);
         }
     }
 }
