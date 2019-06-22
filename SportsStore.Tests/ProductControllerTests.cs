@@ -28,10 +28,10 @@ namespace SportsStore.Tests
             controller.PageSize = 3;
 
             // Act
-            IEnumerable<Product> result = controller.List(2).ViewData.Model as IEnumerable<Product>;
+            ProductsListViewModel result = controller.List(2).ViewData.Model as ProductsListViewModel;
 
             // Assert
-            Product[] productArray = result.ToArray();
+            Product[] productArray = result.Products.ToArray();
             Assert.True(productArray.Length == 2);
             Assert.Equal("P4", productArray[0].Name);
             Assert.Equal("P5", productArray[1].Name);
@@ -61,8 +61,8 @@ namespace SportsStore.Tests
 
             Assert.Equal(2, pageInfo.CurrentPage);
             Assert.Equal(3, pageInfo.ItemsPerPage);
-            Assert.Equal(5, pageInfo.ItemsPerPage);
-            Assert.Equal(2, pageInfo.TotalItems);
+            Assert.Equal(5, pageInfo.TotalItems);
+            Assert.Equal(2, pageInfo.TotalPages);
         }
     }
 }
