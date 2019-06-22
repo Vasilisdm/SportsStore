@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using SportsStore.Models;
+
 namespace SportsStore.Models.ViewModels
 {
     public class ProductsListViewModel
     {
-        public ProductsListViewModel()
-        {
-        }
+        public IEnumerable<Product> Products { get; set; }
+        public PagingInfo PagingInfor { get; set; }
     }
 }
