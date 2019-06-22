@@ -3,6 +3,7 @@ using System.Linq;
 using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
+using SportsStore.Models.ViewModels;
 using Xunit;
 
 namespace SportsStore.Tests
@@ -34,6 +35,34 @@ namespace SportsStore.Tests
             Assert.True(productArray.Length == 2);
             Assert.Equal("P4", productArray[0].Name);
             Assert.Equal("P5", productArray[1].Name);
+        }
+
+        [Fact]
+        public void Can_Send_Pagination_View_Model()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns((new Product[]
+            {
+                new Product {ProductID = 1, Name = "Iphone3"},
+                new Product {ProductID = 2, Name = "Iphone4"},
+                new Product {ProductID = 3, Name = "Iphone5"},
+                new Product {ProductID = 4, Name = "Iphone6"},
+                new Product {ProductID = 5, Name = "IphoneSe"},
+            }).AsQueryable<Product>());
+
+            ProductController controller = new ProductController(mock.Object) {PageSize = 3};
+
+            // Act
+            ProductsListViewModel result = controller.List(2).ViewData.Model as ProductsListViewModel;
+
+            // Assert
+            PagingInfo pageInfo = result.PagingInfo;
+
+            Assert.Equal(2, pageInfo.CurrentPage);
+            Assert.Equal(3, pageInfo.ItemsPerPage);
+            Assert.Equal(5, pageInfo.ItemsPerPage);
+            Assert.Equal(2, pageInfo.TotalItems);
         }
     }
 }
