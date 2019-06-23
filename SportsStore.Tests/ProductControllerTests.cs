@@ -64,5 +64,32 @@ namespace SportsStore.Tests
             Assert.Equal(5, pageInfo.TotalItems);
             Assert.Equal(2, pageInfo.TotalPages);
         }
+
+        [Fact]
+        public void Can_Filter_Products()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {ProductID=1, Category="Cat1", Name="Macbook pro mid 2014"},
+                new Product {ProductID=2, Category="Cat2", Name="Macbook pro mid 2015"},
+                new Product {ProductID=3, Category="Cat2", Name="Macbook pro mid 2016"},
+                new Product {ProductID=4, Category="Cat2", Name="Macbook pro mid 2017"},
+                new Product {ProductID=5, Category="Cat1", Name="Macbook pro mid 2018"},
+                new Product {ProductID=6, Category="Cat1", Name="Macbook pro mid 2019"},
+            }.AsQueryable<Product>());
+
+            ProductController controller = new ProductController(mock.Object) {PageSize = 3};
+
+            // Act
+            Product[] result = (controller.List("Cat2", 1).ViewData.Model as ProductsListViewModel).Products.ToArray();
+
+            // Arrange
+            Assert.Equal(3, result.Length);
+            Assert.True(result[1].Name == "Macbook pro mid 2016" && result[1].Category == "Cat2");
+            Assert.True(result[2].Name == "Macbook pro mid 2017" && result[2].Category == "Cat2");
+        }
     }
 }
