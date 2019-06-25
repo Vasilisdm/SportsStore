@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+
 namespace SportsStore.Components
 {
-    public class NavigationMenuViewComponent
+    public class NavigationMenuViewComponent : ViewComponent
     {
-        public NavigationMenuViewComponent()
+        public string Invoke()
         {
+            return "Vasili's View Component";
         }
     }
 }
