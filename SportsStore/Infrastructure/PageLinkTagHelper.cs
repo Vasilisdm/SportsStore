@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using SportsStore.Models.ViewModels;
+using System.Collections.Generic;
+
 
 namespace SportsStore.Infrastructure
 {
@@ -27,6 +29,9 @@ namespace SportsStore.Infrastructure
 
         public string PageClass { get; set; }
 
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public string PageClassNormal { get; set; }
 
         public string PageClassSelected { get; set; }
@@ -41,6 +46,9 @@ namespace SportsStore.Infrastructure
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction,
                    new { productPage = i });
+
+                PageUrlValues["productPage"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
 
                 if (PageClassesEnabled)
                 {
