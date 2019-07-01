@@ -32,6 +32,10 @@ namespace SportsStore.Models
 
         public virtual decimal ComputeTotalValue() =>
             lineCollection.Sum(p => p.Product.Price * p.Quantity);
+
+        public virtual void Clear() => lineCollection.Clear();
+
+        public virtual IEnumerable<CartLine> Lines => lineCollection;
     }
 
     public class CartLine
