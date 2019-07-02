@@ -30,6 +30,20 @@ namespace SportsStore.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
+        public RedirectToActionResult RemoveFromCart(int productId, string returnUrl)
+        {
+            Product product = _repository.Products.FirstOrDefault(p => p.ProductID == productId);
+
+            if (product != null)
+            {
+                Cart cart = GetCart();
+                cart.RemoveLine(product);
+                SaveCart(cart);
+            }
+
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
         private void SaveCart(Cart cart)
         {
             throw new NotImplementedException();
