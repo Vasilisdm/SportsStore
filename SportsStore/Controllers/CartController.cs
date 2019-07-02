@@ -51,7 +51,8 @@ namespace SportsStore.Controllers
 
         private Cart GetCart()
         {
-            throw new NotImplementedException();
+            Cart cart = HttpContext.Session.GetJson<Cart>("Cart") ?? new Cart();
+            return cart;
         }
     }
 }
