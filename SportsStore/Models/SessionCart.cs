@@ -8,8 +8,9 @@ namespace SportsStore.Models
 {
     public class SessionCart : Cart
     {
-        public SessionCart()
+       public static Cart GetCart(IServiceProvider services)
         {
+            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
         }
     }
 }
