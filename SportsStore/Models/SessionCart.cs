@@ -3,11 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using SportsStore.Infrastructure;
-
+ 
 namespace SportsStore.Models
 {
     public class SessionCart : Cart
     {
+        [JsonIgnore]
         public ISession Session { get; set; }
 
         public static Cart GetCart(IServiceProvider services)
@@ -19,6 +20,12 @@ namespace SportsStore.Models
             cart.Session = session;
 
             return cart;
+        }
+
+        public override void AddItem(Product product, int quantity)
+        {
+            base.AddItem(product, quantity);
+            Session.SetJson("Cart", this);
         }
     }
 }
