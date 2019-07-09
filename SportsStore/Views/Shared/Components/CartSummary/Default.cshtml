@@ -1,0 +1,10 @@
+﻿@model Cart
+
+@if(Model.Lines.Count() > 0)
+{
+    <b>Your Summary: </b>
+    <small>
+        @Model.Lines.Sum(p => p.Quantity)
+        @Model.ComputeTotalValue().ToString("c")
+    </small>
+}
