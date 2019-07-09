@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using SportsStore.Models;
+
 namespace SportsStore.Controllers
 {
-    public class OrderController
+    public class OrderController : Controller
     {
-        public OrderController()
-        {
-        }
+        public ViewResult CheckOut() => View(new Order());
     }
 }
