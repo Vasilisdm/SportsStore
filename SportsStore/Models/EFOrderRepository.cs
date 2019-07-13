@@ -19,7 +19,14 @@ namespace SportsStore.Models
 
         public void SaveOrder(Order order)
         {
-            throw new NotImplementedException();
+            _context.AttachRange(order.Lines.Select(l => l.Product));
+
+            if (order.OrderId == 0)
+            {
+                _context.Orders.Add(order);
+            }
+
+            _context.SaveChanges();
         }
     }
 }
