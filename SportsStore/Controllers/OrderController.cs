@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SportsStore.Models;
+using System;
 using System.Linq;
 
 namespace SportsStore.Controllers
@@ -34,6 +35,12 @@ namespace SportsStore.Controllers
             {
                 return View(order);
             }
+        }
+
+        public ViewResult Completed()
+        {
+            _cart.Clear();
+            return View();
         }
     }
 }
