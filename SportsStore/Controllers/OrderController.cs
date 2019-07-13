@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SportsStore.Models;
+using System.Linq;
 
 namespace SportsStore.Controllers
 {
@@ -15,5 +17,23 @@ namespace SportsStore.Controllers
         }
 
         public ViewResult CheckOut() => View(new Order());
+
+        public ActionResult Checkout(Order order)
+        {
+            if (_cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                order.Lines = _cart.Lines.ToArray();
+                _repositoy.SaveOrder(order);
+                return RedirectToAction(nameof(Completed));
+            } else
+            {
+                return View(order);
+            }
+        }
     }
 }
