@@ -65,7 +65,23 @@ namespace SportsStore.Tests
         [Fact]
         public void Can_Checkout_And_Submit_Order()
         {
+            // Assert
+            Mock<IOrderRepository> mock = new Mock<IOrderRepository>();
 
+            Cart cart = new Cart();
+            cart.AddItem(new Product(), 1);
+
+            OrderController orderCntrl = new OrderController(mock.Object, cart);
+
+            // Act - Try checkout
+            RedirectToActionResult result = orderCntrl.Checkout(new Order()) as RedirectToActionResult;
+
+            // Assert
+            // Check that the order has been stored
+            mock.Verify(m => m.SaveOrder(It.IsAny<Order>()), Times.Once);
+
+            // Check that the method is redirecting to the completed action
+            Assert.Equal("Completed", result.ActionName);
         }
     }
 }
