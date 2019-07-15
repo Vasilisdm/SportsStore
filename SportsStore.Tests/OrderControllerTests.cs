@@ -8,7 +8,7 @@ namespace SportsStore.Tests
 {
     public class OrderControllerTests
     {
-      [Fact]
+        [Fact]
         public void Cannot_Checkout_Empty_Cart()
         {
             // Arrange
@@ -31,6 +31,13 @@ namespace SportsStore.Tests
 
             // Assert - check that I am passing an invalid model to the view
             Assert.False(result.ViewData.ModelState.IsValid);
+        }
+
+
+        [Fact]
+        public void Cannot_Checkout_Invalid_ShippingDetails()
+        {
+
         }
     }
 }
