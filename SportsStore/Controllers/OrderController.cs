@@ -19,6 +19,7 @@ namespace SportsStore.Controllers
 
         public ViewResult CheckOut() => View(new Order());
 
+        [HttpPost]
         public ActionResult Checkout(Order order)
         {
             if (_cart.Lines.Count() == 0)
