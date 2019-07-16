@@ -17,6 +17,8 @@ namespace SportsStore.Controllers
             _cart = cartService;
         }
 
+        public ViewResult List() => View(_repositoy.Orders.Where(o => !o.Shipped));
+
         public ViewResult CheckOut() => View(new Order());
 
         [HttpPost]
