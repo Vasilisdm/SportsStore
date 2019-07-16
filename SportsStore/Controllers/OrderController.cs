@@ -19,6 +19,20 @@ namespace SportsStore.Controllers
 
         public ViewResult List() => View(_repositoy.Orders.Where(o => !o.Shipped));
 
+        [HttpPost]
+        public IActionResult MarkShipped(int orderID)
+        {
+            Order order = _repositoy.Orders.FirstOrDefault(o => o.OrderId == orderID);
+
+            if (order!=null)
+            {
+                order.Shipped = true;
+                _repositoy.SaveOrder(order);
+            }
+
+            return RedirectToAction(nameof(List));
+        }
+
         public ViewResult CheckOut() => View(new Order());
 
         [HttpPost]
