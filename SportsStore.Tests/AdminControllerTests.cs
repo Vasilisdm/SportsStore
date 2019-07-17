@@ -42,9 +42,7 @@ namespace SportsStore.Tests
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
 
             mock.Setup(m => m.Products).Returns(new Product[]{
-                new Product {ProductID = 1, Name = "P1"},
-                new Product {ProductID = 2, Name = "P2"},
-                new Product {ProductID = 3, Name = "P3"}
+                
             }.AsQueryable<Product>());
 
             AdminController cntrl = new AdminController(mock.Object);
@@ -58,6 +56,27 @@ namespace SportsStore.Tests
             Assert.Equal(1, p1.ProductID);
             Assert.Equal(2, p2.ProductID);
             Assert.Equal(3, p3.ProductID);
+        }
+
+        [Fact]
+        public void Cannot_Edit_Nonexistent_Product()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            mock.Setup(m => m.Products).Returns(new Product[] {
+                new Product {ProductID = 1, Name = "P1"},
+                new Product {ProductID = 2, Name = "P2"},
+                new Product {ProductID = 3, Name = "P3"}
+            }.AsQueryable());
+
+            AdminController cntrl = new AdminController(mock.Object);
+
+            // Act
+            Product nonExistingProduct = GetViewModel<Product>(cntrl.Edit(4));
+
+            // Assert
+            Assert.Null(nonExistingProduct);
         }
 
         private T GetViewModel<T>(IActionResult result) where T : class
