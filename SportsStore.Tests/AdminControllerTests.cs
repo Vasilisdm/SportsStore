@@ -113,5 +113,28 @@ namespace SportsStore.Tests
             // Check the name of the action method that the user is being redirected to.
             Assert.Equal("Index", (result as RedirectToActionResult).ActionName);
         }
+
+        [Fact]
+        public void Cannot_Save_Invalid_Changes()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            AdminController cntrl = new AdminController(mock.Object);
+
+            Product product = new Product { Name = "test" };
+
+            cntrl.ModelState.AddModelError("error", "error");
+
+            // Act - Try to save the product
+            IActionResult result = cntrl.Edit(product);
+
+            // Assert
+            // The SaveProduct of the repository should not have been called
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never);
+
+            // Check the type of the action's method result
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }
