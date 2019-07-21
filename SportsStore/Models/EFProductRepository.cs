@@ -13,8 +13,7 @@ namespace SportsStore.Models
         }
 
         public IQueryable<Product> Products => _context.Products;
-
-
+        
         public void SaveProduct(Product product)
         {
             if (product.ProductID == 0)
@@ -36,5 +35,19 @@ namespace SportsStore.Models
 
             _context.SaveChanges();
         }
+
+        public Product DeleteProduct(int productId)
+        {
+            Product dbEntry = _context.Products.FirstOrDefault(p => p.ProductID == productId);
+
+            if (dbEntry != null)
+            {
+                _context.Products.Remove(dbEntry);
+                _context.SaveChanges();
+            }
+
+            return dbEntry;
+        }
+
     }
 }
