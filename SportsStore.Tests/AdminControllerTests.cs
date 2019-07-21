@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Moq;
 using SportsStore.Controllers;
 using SportsStore.Models;
@@ -82,6 +83,35 @@ namespace SportsStore.Tests
         private T GetViewModel<T>(IActionResult result) where T : class
         {
             return (result as ViewResult)?.ViewData.Model as T;
+        }
+
+        [Fact]
+        public void Can_Save_Valid_Changes()
+        {
+            // Arrange
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+
+            Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+
+            AdminController cntrl = new AdminController(mock.Object)
+            {
+                TempData = tempData.Object
+            };
+
+            Product product = new Product { Name = "Test" };
+
+            // Act
+            IActionResult result = cntrl.Edit(product);
+
+            // Assert
+            // Check if the SaveProduct of the repository was called
+            mock.Verify(m => m.SaveProduct(product));
+
+            // Check if the result type is redirect action
+            Assert.IsType<RedirectToActionResult>(result);
+
+            // Check the name of the action method that the user is being redirected to.
+            Assert.Equal("Index", (result as RedirectToActionResult).ActionName);
         }
     }
 }
