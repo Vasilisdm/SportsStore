@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SportsStore.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace SportsStore
 {
@@ -36,7 +37,7 @@ namespace SportsStore
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("ApplicationContext")));
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("AppIdentityContext")));
 
             services.AddTransient<IProductRepository, EFProductRepository>();
