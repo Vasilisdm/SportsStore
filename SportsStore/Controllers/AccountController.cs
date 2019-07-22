@@ -12,8 +12,10 @@ namespace SportsStore.Controllers
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
-        public AccountController()
+        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
         {
+            userManager = userMgr;
+            signInManager = signInMgr;
         }
     }
 }
