@@ -40,6 +40,10 @@ namespace SportsStore
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("AppIdentityContext")));
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<AppIdentityDbContext>()
+                    .AddDefaultTokenProviders();
+
             services.AddTransient<IProductRepository, EFProductRepository>();
 
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
@@ -73,6 +77,7 @@ namespace SportsStore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseCookiePolicy();
             app.UseMvc(routes => {
                 routes.MapRoute(
