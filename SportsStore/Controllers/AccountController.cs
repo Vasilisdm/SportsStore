@@ -9,6 +9,9 @@ namespace SportsStore.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private UserManager<IdentityUser> userManager;
+        private SignInManager<IdentityUser> signInManager;
+
         public AccountController()
         {
         }
