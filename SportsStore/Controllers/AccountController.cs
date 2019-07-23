@@ -26,5 +26,28 @@ namespace SportsStore.Controllers
                 ReturnUrl = returnUrl
             });
         }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginModel loginModel)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityUser user = await userManager.FindByIdAsync(loginModel.Name);
+
+                if (user != null)
+                {
+                    await signInManager.SignOutAsync();
+
+                    if ((await signInManager.PasswordSignInAsync(user, loginModel.Password,false,false)).Succeeded)
+                    {
+                        return Redirect(loginModel?.ReturnUrl ?? "/Admin/Index");
+                    }
+                }
+            }
+            ModelState.AddModelError("", "Invalid Name or password");
+            return View(loginModel);
+        }
     }
 }
