@@ -49,5 +49,10 @@ namespace SportsStore.Controllers
             ModelState.AddModelError("", "Invalid Name or password");
             return View(loginModel);
         }
-    }
+
+        public async Task<RedirectResult> Logout(string returnUrl = '/')
+        {
+            await signInManager.SignOutAsync();
+            return Redirect(returnUrl);
+        }
 }
