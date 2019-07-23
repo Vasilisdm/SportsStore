@@ -27,6 +27,7 @@
     <Folder Include="Views\Shared\Components\CartSummary\" />
     <Folder Include="Views\Order\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Account\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Pages\_ViewImports.cshtml" />
