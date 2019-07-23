@@ -22,7 +22,8 @@ namespace SportsStore.Controllers
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
         {
-            return View(new LoginModel {
+            return View(new LoginModel
+            {
                 ReturnUrl = returnUrl
             });
         }
@@ -40,7 +41,7 @@ namespace SportsStore.Controllers
                 {
                     await signInManager.SignOutAsync();
 
-                    if ((await signInManager.PasswordSignInAsync(user, loginModel.Password,false,false)).Succeeded)
+                    if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
                         return Redirect(loginModel?.ReturnUrl ?? "/Admin/Index");
                     }
@@ -50,9 +51,10 @@ namespace SportsStore.Controllers
             return View(loginModel);
         }
 
-        public async Task<RedirectResult> Logout(string returnUrl = '/')
+        public async Task<RedirectResult> Logout(string returnUrl = "/")
         {
             await signInManager.SignOutAsync();
             return Redirect(returnUrl);
         }
+    }
 }
